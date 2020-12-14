@@ -8,7 +8,7 @@ class GroceryItem
   
   def calculate_item_price
     @items_details = {
-      "milk": {  
+      "milk" => {  
         "unit_price" => 3.97,
         "sale_unit_price" => 2.50
       },
@@ -18,7 +18,7 @@ class GroceryItem
       }, 
       "apple" => { 
         "unit_price" => 0.89
-      },"banana" => { 
+      },"banana" =>{ 
         "unit_price" => 0.99 
       }
     }
@@ -27,30 +27,36 @@ class GroceryItem
     when "milk"
       sale_on_quantity = 2
       final_milk_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
-      final_milk_price
+
+      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
+      $total_price_after_discount += final_milk_price
+      final_milk_price 
     when "bread"
-      sale_on_quantity = 2
+      sale_on_quantity = 3
       final_bread_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
+
+      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
+      $total_price_after_discount += final_bread_price
       final_bread_price
     when "banana"
-      final_milk_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
-      return 
+      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
+      $total_price_after_discount += $total_price_before_discount
     when "apple"
-      final_milk_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
-      return 
+      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
+      $total_price_after_discount += $total_price_before_discount
     end
   end
 
   def calculate_price_after_discount(item_unit_price, item_sale_unit_price, sale_on_quantity)
     item_price_after_discount = 0 
-
     if @item_quantity < sale_on_quantity
       item_price_after_discount = item_unit_price * @item_quantity
       return item_price_after_discount
-    elsif @item_quantity >= sale_on_quantity
-      item_price_after_discount = ((item_sale_unit_price * sale_on_quantity) * (@item_quantity / sale_on_quantity) ) + (unit_price * (@item_quantity % sale_on_quantity))
+    end
+    if @item_quantity >= sale_on_quantity
+      item_price_after_discount = ((item_sale_unit_price * sale_on_quantity) * (@item_quantity / sale_on_quantity) ) + (item_unit_price * (@item_quantity % sale_on_quantity))
       return item_price_after_discount
     end
-    
   end
+
 end
