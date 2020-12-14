@@ -33,9 +33,9 @@ class GroceryItem
       final_bread_price = discount_calculator(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
       return final_bread_price
     when "banana"
-      return @items_details[@item_name]["unit_price"]
+      return @items_details[@item_name]["unit_price"] * @item_quantity
     when "apple"
-      return @items_details[@item_name]["unit_price"]
+      return @items_details[@item_name]["unit_price"] * @item_quantity
     end
   end
 

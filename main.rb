@@ -28,6 +28,12 @@ end
 def display_bill_table 
   table = Terminal::Table.new :headings => ['Item', 'Quantity', 'Price'], :rows => $table_data
   puts table
+  generate_receipt
+end
+
+def generate_receipt
+  amount_saved = ($all_prices_before_discount.sum - $all_prices_after_discount.sum).round(2)
+  puts"\n Total price: $#{ $all_prices_after_discount.sum.round(2)} \n You saved $#{amount_saved} today."
 end
 
 accept_user_items
