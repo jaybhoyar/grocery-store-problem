@@ -8,15 +8,13 @@ class GroceryItem
   
   def calculate_item_price
     @items_details = {
-      "milk" => {  
+      "milk": {  
         "unit_price" => 3.97,
-        "sale_unit_price" => 2.50, 
-        "sale_on_quantity" => 2
+        "sale_unit_price" => 2.50
       },
       "bread" => { 
         "unit_price" => 2.17, 
         "sale_unit_price" => 2.0, 
-        "sale_on_quantity" => 3
       }, 
       "apple" => { 
         "unit_price" => 0.89
@@ -24,6 +22,35 @@ class GroceryItem
         "unit_price" => 0.99 
       }
     }
+
+    case @item_name
+    when "milk"
+      sale_on_quantity = 2
+      final_milk_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
+      final_milk_price
+    when "bread"
+      sale_on_quantity = 2
+      final_bread_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
+      final_bread_price
+    when "banana"
+      final_milk_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
+      return 
+    when "apple"
+      final_milk_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
+      return 
+    end
+  end
+
+  def calculate_price_after_discount(item_unit_price, item_sale_unit_price, sale_on_quantity)
+    item_price_after_discount = 0 
+
+    if @item_quantity < sale_on_quantity
+      item_price_after_discount = item_unit_price * @item_quantity
+      return item_price_after_discount
+    elsif @item_quantity >= sale_on_quantity
+      item_price_after_discount = ((item_sale_unit_price * sale_on_quantity) * (@item_quantity / sale_on_quantity) ) + (unit_price * (@item_quantity % sale_on_quantity))
+      return item_price_after_discount
+    end
     
   end
 end
