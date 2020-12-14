@@ -27,23 +27,15 @@ class GroceryItem
     when "milk"
       sale_on_quantity = 2
       final_milk_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
-
-      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
-      $total_price_after_discount += final_milk_price
-      final_milk_price 
+      return final_milk_price 
     when "bread"
       sale_on_quantity = 3
       final_bread_price = calculate_price_after_discount(@items_details[@item_name]["unit_price"], @items_details[@item_name]["sale_unit_price"],sale_on_quantity)
-
-      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
-      $total_price_after_discount += final_bread_price
-      final_bread_price
+      return final_bread_price
     when "banana"
-      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
-      $total_price_after_discount += $total_price_before_discount
+      return @items_details[@item_name]["unit_price"]
     when "apple"
-      $total_price_before_discount += @items_details[@item_name]["unit_price"] * @item_quantity
-      $total_price_after_discount += $total_price_before_discount
+      return @items_details[@item_name]["unit_price"]
     end
   end
 
@@ -58,5 +50,4 @@ class GroceryItem
       return item_price_after_discount
     end
   end
-
 end
