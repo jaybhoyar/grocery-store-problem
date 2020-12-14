@@ -1,4 +1,4 @@
-
+require_relative './groceryItem.rb'
 def accept_user_items
   puts "Please enter all the items purchased separated by a comma"
   items_bought = gets.chomp.split(',')
@@ -11,7 +11,7 @@ end
 
 def create_item item_name, items_bought
   quantity = items_bought.count(item_name)
-  puts quantity
+  GroceryItem.new(item_name, quantity)
 end
 
 accept_user_items
